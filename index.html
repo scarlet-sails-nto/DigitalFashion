@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>Виртуальная одежда. Алые паруса</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.6.2/dist/es-module-shims.js"></script>
+    <script type="importmap">
+          {
+            "imports": {
+              "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+              "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+            }
+          }
+    </script>
+<!-- 
+    <div class="header"></div>
+    
+    <div class="block block-dark">
+        <h1>ВИРТУАЛЬНАЯ ОДЕЖДА</h1>
+        <img src="images\head_img.jpg">
+    </div>
+    
+    <div class="block">
+        <div class="text-contain">
+            <p>буковки буковки буковки буковки буковки буковки буковки буковки 
+                буковкибуковкибуковкибуковкибуковкибуковкибуковки буковки
+                буковки буковки буковки буковкибуковкибуковкибуковки буковки
+                буковкибуковкибуковки буковки буковки буковки буковкибуковки
+                буковки буковкибуковкибуковки буковки буковкибуковки буковки</p>
+        </div>
+        <div class="text-contain">буковки буковки буковки буковки буковки буковки буковки буковки 
+            буковки буковки буковки буковки буковки буковки буковки буковки
+            буковки буковки буковки буковки буковки буковки буковки буковки
+            буковки буковки буковки буковки буковки буковки буковки буковки 
+            буковки буковки буковки буковки буковки буковки буковки буковки
+        </div>
+    </div>
+
+    <div class="block block-dark slider-contain"></div>
+    
+    <div class="block">
+        <div class="text-contain">
+            <p>очень умная научная статья<br>с картиночками</p>
+        </div>
+    </div>
+    
+    <div class="block block-dark video-contain">
+        <iframe src="https://www.youtube.com/embed/jfKfPfyJRdk?si=H1aouo3ydGhRLSkD" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    
+    <div class="block">
+        <div class="text-contain">буковкибуковкибуковкибуковкибуковкибуковкибуковкибуковки
+            буковкибуковкибуковкибуковкибуковкибуковкибуковкибуковки
+            буковкибуковкибуковкибуковкибуковкибуковкибуковкибуковки
+            буковкибуковкибуковкибуковкибуковкибуковкибуковкибуковки
+            буковкибуковкибуковкибуковкибуковкибуковкибуковкибуковки
+        </div>
+    </div>
+     -->
+    <div class="block block-dark model-contain">
+        <div class="contain">
+            <div class="texts">
+                <div class="card" id="card1">инфографика 1</div>
+                <div class="card" id="card2">инфографика 2</div>
+                <div class="card" id="card3">инфографика 3</div>
+                <div class="card" id="card4">инфографика 4</div>
+                <div class="card" id="card5">инфографика 5</div>
+            </div>
+            <canvas class="model"></canvas>
+        </div>
+    </div>
+    
+    <div class="block"></div>
+    
+    <div class="footer"></div>
+
+    <script type="module" src="./model.js"></script>
+</body>
+
+</html>
