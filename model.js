@@ -19,12 +19,15 @@ function init(){
     const loader = new GLTFLoader();
 
     let model;
+    let rotatey;
     loader.load('./model/hat.glb', gltf => {
         model = gltf.scene;
-        model.children[0].castShadow = true;
+        model.children[0].name = 'hat';
+        rotatey = model.children[0].rotation.y
         model.scale.set(2, 2, 2);
-        model.position.y = 0.7;
-        // console.log(model);
+        model.position.y = 1;
+        model.rotation.y = -0.5
+        console.log(rotatey);
         scene.add(model);
     }, undefined, function(error){console.log(error)});
 
@@ -51,11 +54,12 @@ function init(){
     p1light.decay = 0.96;
     scene.add(p1light);
 
-    camera.position.z = 9;
+    camera.position.z = 9.6;
+    camera.position.y = 1.7;
 
     const controls = new OrbitControls(camera, canvas);
-    controls.minPolarAngle = 1.5;
-    controls.maxPolarAngle = 1.5;
+    // controls.minPolarAngle = 1.5;
+    // controls.maxPolarAngle = 1.5;
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0.7;
     controls.enablePan = false;
@@ -63,6 +67,7 @@ function init(){
     controls.minDistance = 8.7;
 
     window.addEventListener('resize', resizediv, false)
+    window.addEventListener('mousedown', click_hat)
 
     function resizediv(){
         camera.aspect = div.offsetWidth / div.offsetHeight;
@@ -71,10 +76,41 @@ function init(){
         renderer.render(scene, camera);
     }
 
+    const raycast = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let rotating = false;
+
+    function click_hat(cord){
+        const size = div.getBoundingClientRect();
+        mouse.x = ((cord.clientX - size.left) / div.clientWidth) * 2 - 1;
+        mouse.y = ((cord.clientY - size.top) / div.clientHeight) * -2 + 1;
+
+        raycast.setFromCamera(mouse, camera);
+        const intersects = raycast.intersectObjects(scene.children);
+        for (let i = 0; i < intersects.length; i++){
+            // console.log(intersects[i]);
+            if (intersects[i].object.name == 'hat'){
+                rotating = true;
+                break;
+            }
+        }
+    }
+    
     function animate() {
         requestAnimationFrame(animate);
         controls.update();
+        if (rotating){
+            model.children[0].rotation.y += -(2 * Math.PI / 180)
+            model.children[0].position.y -= 0.007 * (Math.sin(model.children[0].rotation.y - rotatey))
+            model.children[0].rotation.z += 0.003 * (Math.sin(model.children[0].rotation.y - rotatey))
+            if (model.children[0].rotation.y <= -(2 * Math.PI - rotatey)) {
+                rotating = false;
+                model.children[0].rotation.y = rotatey;
+            }
+        }
+        // model.rotation.y = (model.rotation.y - 0.4 * Math.PI / 180) % (2 * Math.PI)
         cards.style.transform = `perspective(1000px) rotateY(${-controls.getAzimuthalAngle()}rad)`
+        // console.log(model.rotation.y)
         renderer.render(scene, camera);
     }
 
