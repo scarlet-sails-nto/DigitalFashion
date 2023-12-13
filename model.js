@@ -7,6 +7,7 @@ function init(){
     const div = document.body.querySelector(".contain");
     const canvas = document.body.querySelector(".model");
     const cards = document.body.querySelector(".texts");
+    const arrow = document.body.querySelectorAll(".model-contain .arrow");
 
     const camera = new THREE.PerspectiveCamera(75, div.offsetWidth / div.offsetHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({canvas, alpha:true});
@@ -91,6 +92,9 @@ function init(){
             // console.log(intersects[i]);
             if (intersects[i].object.name == 'hat'){
                 rotating = true;
+                arrow.forEach((ar) =>{
+                    ar.style.opacity = `0`
+                })
                 break;
             }
         }
@@ -106,11 +110,12 @@ function init(){
             if (model.children[0].rotation.y <= -(2 * Math.PI - rotatey)) {
                 rotating = false;
                 model.children[0].rotation.y = rotatey;
+                arrow.forEach((ar) =>{
+                    ar.style.animation = `none`
+                })
             }
         }
-        // model.rotation.y = (model.rotation.y - 0.4 * Math.PI / 180) % (2 * Math.PI)
         cards.style.transform = `perspective(1000px) rotateY(${-controls.getAzimuthalAngle()}rad)`
-        // console.log(model.rotation.y)
         renderer.render(scene, camera);
     }
 
